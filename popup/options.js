@@ -55,6 +55,29 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault();
     console.log("Save Button Clicked!");
 
+    let existingContainer = document.getElementById("lottie-container");
+    if (existingContainer) {
+      lottie.destroy();
+      existingContainer.remove();
+    }
+
+    const animationContainer = document.createElement("div");
+    animationContainer.id = "lottie-container";
+    saveButton.insertAdjacentElement("afterend", animationContainer); //append after
+    //document.body.appendChild(animationContainer); //append elsewhere
+
+    const animation = lottie.loadAnimation({
+      container: document.getElementById("lottie-container"),
+      renderer: "svg",
+      loop: false,
+      autoplay: true,
+      path: chrome.runtime.getURL("images/checkAnimation.json"),
+    });
+
+    animation.addEventListener("complete", function () {
+      animationContainer.remove();
+    });
+
     const url = urlInput.value;
     const file = fileInput.files[0];
     const checked = checkboxInput.checked;

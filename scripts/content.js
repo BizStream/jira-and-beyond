@@ -3,12 +3,6 @@ link.href = chrome.runtime.getURL("dist/css/styles.css");
 link.rel = "stylesheet";
 document.head.appendChild(link);
 
-chrome.storage.sync.get(["url", "checked"], function (data) {
-  console.log("Data: ", data);
-  const url = data.url;
-  const checked = data.checked;
-});
-
 let checkExist = setInterval(function () {
   const targetDiv = document.querySelector(
     'div[data-fullscreen-id="fullscreen-board-breadcrumbs"]'
@@ -18,21 +12,26 @@ let checkExist = setInterval(function () {
     clearInterval(checkExist);
 
     const myButton = document.createElement("button");
-    myButton.innerText = "Click me";
+
     myButton.className =
-      "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center justify-center tag-BUTTON";
+      "flex items-center justify-center border border-gray-300 text-gray-800 font-bold py-2 px-4 rounded shadow text-lg";
     const myImage = document.createElement("img");
 
-    //TODO: Fix this error
-    //Denying load of chrome-extension://nigodhdkccodhcagpinfogceefjaohgo/images/favicon.ico.
-    //Resources must be listed in the web_accessible_resources manifest key in order to be loaded by pages outside the extension.
+    chrome.storage.local.get(["base64"], function (data) {
+      const base64 = data.base64;
+      if (base64) {
+        myImage.src = base64;
+      }
+    });
+    myImage.className = "mr-2 h-[20px]";
+    targetDiv.className = "flex items-center gap-10";
 
-    myImage.src = chrome.runtime.getURL("images/favicon.ico"); // This will be the image set in options
-    myImage.style.marginRight = "10px";
-    const buttonText = document.createTextNode("GO TO SOLO"); // This will be whatever message is set in options
+    chrome.storage.sync.get(["message"], function (data) {
+      const buttonText = document.createTextNode(data.message);
+      myButton.appendChild(buttonText); // This will be whatever message is set in options
+    });
 
     myButton.appendChild(myImage);
-    myButton.appendChild(buttonText);
     targetDiv.appendChild(myButton);
 
     myButton.addEventListener("click", function () {

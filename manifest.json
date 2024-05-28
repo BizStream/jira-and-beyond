@@ -5,11 +5,13 @@
     "version": "1.0",
     "action": {
       "default_popup": "./popup/options.html",
-      "default_icon": "./images/hello_extensions.png"
+      "default_icon": "./images/favicon.ico"
     },
     "content_scripts": [
       {
-        "matches": ["*://*.atlassian.net/*"],
+        "matches": ["*://*.atlassian.net/jira/software/c/projects/*",
+        "*://*.atlassian.net/jira/software/c/projects/*/*",
+        "*://*.atlassian.net/jira/software/c/projects/*/boards/*?*"],
         "js": ["./scripts/content.js"],
         "css": ["./dist/css/styles.css"]
       }
@@ -25,7 +27,9 @@
     "web_accessible_resources": [
       {
         "resources": [
-          "dist/css/styles.css"
+          "dist/css/styles.css",
+          "images/*.png",
+          "images/*.ico"
         ],
         "matches": [
           "http://*/*",

@@ -1,8 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
-  chrome.storage.sync.get(["url", "checked"], function (data) {
+  chrome.storage.sync.get(["url", "checked", "message"], function (data) {
     console.log("Data: ", data);
     urlInput.value = data.url;
     checkboxInput.checked = data.checked;
+    messageInput.value = data.message;
   });
 
   chrome.storage.local.get(["base64"], function (data) {
@@ -20,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const urlInput = document.getElementById("urlInput");
   const checkboxInput = document.getElementById("checkboxInput");
   const saveButton = document.getElementById("saveButton");
-  const imageSpan = document.getElementById("imageSpan");
+  const messageInput = document.getElementById("messageInput");
 
   button.addEventListener("click", function () {
     fileInput.click();
@@ -57,6 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const url = urlInput.value;
     const file = fileInput.files[0];
     const checked = checkboxInput.checked;
+    const message = messageInput.value;
 
     if (file) {
       const reader = new FileReader();
@@ -78,9 +80,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     console.log("URL: ", url);
-    chrome.storage.sync.set({ url, checked }, function () {
+    chrome.storage.sync.set({ url, checked, message }, function () {
       console.log("Saved URL: ", url);
       console.log("Saved Checked: ", checked);
+      console.log("Saved Message: ", message);
     });
   });
 });

@@ -1,0 +1,36 @@
+{
+    "manifest_version": 3,
+    "name": "Jira to Solo Extension",
+    "description": "Simple extension to take user form Jira to Solo",
+    "version": "1.0",
+    "action": {
+      "default_popup": "./popup/options.html",
+      "default_icon": "./images/hello_extensions.png"
+    },
+    "content_scripts": [
+      {
+        "matches": ["*://*.atlassian.net/*"],
+        "js": ["./scripts/content.js"],
+        "css": ["./dist/css/styles.css"]
+      }
+    ],
+    "background": {
+      "service_worker": "./scripts/background.js"
+    },
+    "permissions": [
+      "storage",
+      "activeTab",
+      "tabs"
+    ],
+    "web_accessible_resources": [
+      {
+        "resources": [
+          "dist/css/styles.css"
+        ],
+        "matches": [
+          "http://*/*",
+          "https://*/*"
+        ]
+      }
+    ]
+  }

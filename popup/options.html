@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../dist/css/styles.css"/>
+    <script src="options.js"></script>
+    <title>Extension Options</title>
+</head>
+<body>
+    <div class="w-[200px] h-6 flex flex-col text-2xl">Options
+        <form>
+            <input id="urlInput" type="text"></input>
+            <button id="imageButton" type="button">Attach image</button>
+            <input id="fileInput" type="file" class="hidden" accept="image/png" />
+            <img id="imagePreview" src="" alt="(image preview)" style="display: none;"></img>
+            <input id="checkboxInput" type="checkbox"></input>
+            <button id="saveButton" type="submit">Save</button>
+        </form>
+    </div>
+</body>
+</html>

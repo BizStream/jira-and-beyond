@@ -44,6 +44,7 @@ const observer = new MutationObserver((mutations, observerInstance) => {
 
       chrome.storage.sync.get(["url"], function (data) {
         console.log("Data: ", data);
+        //TODO: check to make sure end of url has a '/'
         const newUrl = data.url + code; // This will be the URL set in options
         chrome.storage.sync.get(["checked"], function (data) {
           if (data.checked) {

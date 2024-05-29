@@ -1,16 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
   chrome.storage.sync.get(["url", "checked", "message"], function (data) {
     console.log("Data: ", data.url, data.checked, data.message);
-    if (data.url == undefined) {
-      urlInput.value = "";
-    } else {
-      urlInput.value = data.url;
-    }
-    if (data.message == undefined) {
-      messageInput.value = "";
-    } else {
-      messageInput.value = data.message;
-    }
+    urlInput.value = data.url ?? "";
+    messageInput.value = data.message ?? "";
     checkboxInput.checked = data.checked;
   });
 
@@ -36,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   fileInput.addEventListener("change", function () {
-    const file = fileInput.files[0];
+    const file = fileInput.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = function (e) {
@@ -49,30 +41,14 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("File: ", file);
   });
 
-  urlInput.addEventListener("change", function () {
-    const url = urlInput.value;
-    console.log("URL: ", url);
-  });
-
-  checkboxInput.addEventListener("change", function () {
-    const checked = checkboxInput.checked;
-    console.log("Checked: ", checked);
-  });
-
   saveButton.addEventListener("click", function (e) {
     e.preventDefault();
     console.log("Save Button Clicked!");
 
     let existingContainer = document.getElementById("lottie-container");
     if (existingContainer) {
-      lottie.destroy();
-      existingContainer.remove();
+      existingContainer.classList.remove("hidden");
     }
-
-    const animationContainer = document.createElement("div");
-    animationContainer.id = "lottie-container";
-    saveButton.insertAdjacentElement("afterend", animationContainer); //append after
-    //document.body.appendChild(animationContainer); //append elsewhere
 
     const animation = lottie.loadAnimation({
       container: document.getElementById("lottie-container"),
@@ -83,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     animation.addEventListener("complete", function () {
-      animationContainer.remove();
+      existingContainer.classList.add("hidden");
     });
 
     const url = urlInput.value;
@@ -110,11 +86,8 @@ document.addEventListener("DOMContentLoaded", function () {
       reader.readAsDataURL(file);
     }
 
+    //TODO: get rid of the console.log statements
     console.log("URL: ", url);
-    chrome.storage.sync.set({ url, checked, message }, function () {
-      console.log("Saved URL: ", url);
-      console.log("Saved Checked: ", checked);
-      console.log("Saved Message: ", message);
-    });
+    chrome.storage.sync.set({ url, checked, message });
   });
 });

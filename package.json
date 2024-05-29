@@ -2,7 +2,7 @@
   "name": "jira-to-solo",
   "version": "1.0.0",
   "description": "",
-  "main": "scripts/background.js",
+  "main": "scripts/content.js",
   "scripts": {
     "build-css": "postcss popup/styles.css -o dist/css/styles.css",
     "watch-css": "postcss popup/styles.css -o dist/css/styles.css --watch",

@@ -9,7 +9,7 @@
     },
     "content_scripts": [
       {
-        "matches": ["*://*.atlassian.net/jira/software/c/projects/*",
+        "matches": ["*://*.atlassian.net/*", "*://*.atlassian.net/jira/software/c/projects/*",
         "*://*.atlassian.net/jira/software/c/projects/*/*",
         "*://*.atlassian.net/jira/software/c/projects/*/boards/*?*"],
         "js": ["./scripts/content.js"],

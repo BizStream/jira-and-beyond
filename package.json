@@ -5,7 +5,7 @@
   "main": "scripts/background.js",
   "scripts": {
     "build-css": "postcss popup/styles.css -o dist/css/styles.css",
-    "watch-css": "chokidar 'popup/styles.css' -c 'npm run build-css'",
+    "watch-css": "postcss popup/styles.css -o dist/css/styles.css --watch",
     "test": "mocha --experimental-modules 'test/**/*.test.js'",
     "coverage": "nyc npm test"
   },

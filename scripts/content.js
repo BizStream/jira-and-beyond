@@ -3,16 +3,15 @@ link.href = chrome.runtime.getURL("dist/css/styles.css");
 link.rel = "stylesheet";
 document.head.appendChild(link);
 
-let checkExist = setInterval(function () {
-  const targetDiv = document.querySelector(
-    'div[data-fullscreen-id="fullscreen-board-breadcrumbs"]'
-  );
+const targetDivState = 'div[data-fullscreen-id="fullscreen-board-breadcrumbs"]';
+
+const observer = new MutationObserver((mutations, observerInstance) => {
+  const targetDiv = document.querySelector(targetDivState);
 
   if (targetDiv) {
-    clearInterval(checkExist);
+    observerInstance.disconnect();
 
     const myButton = document.createElement("button");
-
     myButton.className =
       "flex items-center justify-center border border-gray-300 text-gray-800 font-bold py-2 px-4 rounded shadow text-lg";
     const myImage = document.createElement("img");
@@ -56,4 +55,10 @@ let checkExist = setInterval(function () {
       });
     });
   }
-}, 500);
+});
+
+// Start observing the document for changes
+observer.observe(document.body, {
+  childList: true,
+  subtree: true,
+});

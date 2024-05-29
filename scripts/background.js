@@ -1,4 +1,4 @@
-//TODO: do i even need this script?
+//TODO: refresh the extension when the user changes the settings?
 chrome.storage.onChanged.addListener(function (changes, namespace) {
   for (var key in changes) {
     var storageChange = changes[key];

@@ -1,9 +1,17 @@
 document.addEventListener("DOMContentLoaded", function () {
   chrome.storage.sync.get(["url", "checked", "message"], function (data) {
-    console.log("Data: ", data);
-    urlInput.value = data.url;
+    console.log("Data: ", data.url, data.checked, data.message);
+    if (data.url == undefined) {
+      urlInput.value = "";
+    } else {
+      urlInput.value = data.url;
+    }
+    if (data.message == undefined) {
+      messageInput.value = "";
+    } else {
+      messageInput.value = data.message;
+    }
     checkboxInput.checked = data.checked;
-    messageInput.value = data.message;
   });
 
   chrome.storage.local.get(["base64"], function (data) {

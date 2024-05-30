@@ -35,16 +35,15 @@ const observer = new MutationObserver((mutations, observerInstance) => {
 
     myButton.addEventListener("click", function () {
       const currentUrl = window.location.href;
-      console.log("currentUrl", currentUrl);
       const code = currentUrl.split("/")[6];
-      console.log("code", code);
       if (!code) {
         console.error("No code found");
       }
 
       chrome.storage.sync.get(["url"], function (data) {
-        console.log("Data: ", data);
-        //TODO: check to make sure end of url has a '/'
+        if (data.url[data.url.length - 1] !== "/") {
+          data.url += "/";
+        }
         const newUrl = data.url + code; // This will be the URL set in options
         chrome.storage.sync.get(["checked"], function (data) {
           if (data.checked) {

@@ -30,8 +30,7 @@
           "images/*.ico"
         ],
         "matches": [
-          "http://*/*",
-          "https://*/*"
+          "*://*.atlassian.net/*"
         ]
       }
     ]

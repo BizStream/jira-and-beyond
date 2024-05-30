@@ -1,13 +1,11 @@
 document.addEventListener("DOMContentLoaded", function () {
   chrome.storage.sync.get(["url", "checked", "message"], function (data) {
-    console.log("Data: ", data.url, data.checked, data.message);
     urlInput.value = data.url ?? "";
     messageInput.value = data.message ?? "";
     checkboxInput.checked = data.checked;
   });
 
   chrome.storage.local.get(["base64"], function (data) {
-    console.log("Data: ", data);
     const base64 = data.base64;
     if (base64) {
       const imagePreview = document.getElementById("imagePreview");
@@ -38,12 +36,10 @@ document.addEventListener("DOMContentLoaded", function () {
       };
       reader.readAsDataURL(file);
     }
-    console.log("File: ", file);
   });
 
   saveButton.addEventListener("click", function (e) {
     e.preventDefault();
-    console.log("Save Button Clicked!");
 
     let existingContainer = document.getElementById("lottie-container");
     if (existingContainer) {
@@ -78,16 +74,12 @@ document.addEventListener("DOMContentLoaded", function () {
               "Error saving to local storage:",
               chrome.runtime.lastError
             );
-          } else {
-            console.log("File data saved to local storage.");
           }
         });
       };
       reader.readAsDataURL(file);
     }
 
-    //TODO: get rid of the console.log statements
-    console.log("URL: ", url);
     chrome.storage.sync.set({ url, checked, message });
   });
 });

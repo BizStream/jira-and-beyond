@@ -1,55 +1,63 @@
-import sinon from "sinon"; // for mocking any other function calls
-import sinonChrome from "sinon-chrome"; // for mocking chrome API calls
+import vm from "vm";
+import fs from "fs";
+import chrome from "sinon-chrome";
 import { expect } from "chai";
-
-global.chrome = sinonChrome;
+import { JSDOM } from "jsdom";
 
 describe("Options popup", () => {
+  let urlInput, messageInput, checkboxInput;
+
   beforeEach(() => {
-    sinon.reset();
-    sinonChrome.flush();
+    // Define the variables to store the element states
+    urlInput = { value: "" };
+    messageInput = { value: "" };
+    checkboxInput = { checked: false };
+
+    // Use sinon-chrome to mock the chrome API
+    global.chrome = chrome;
+
+    // Mock chrome.storage.sync.get
+    chrome.storage.sync.get.yields({
+      url: "google.com",
+      message: "Hello",
+      checked: false,
+    });
+
+    //TODO: Mock the DOM
+    // Mock the document.getElementById to return our variables
+    // const mockDocument = {
+    //   getElementById: (id) => {
+    //     if (id === "urlInput") return urlInput;
+    //     if (id === "messageInput") return messageInput;
+    //     if (id === "checkboxInput") return checkboxInput;
+    //     return null;
+    //   },
+    // };
+
+    // const context = {
+    //   chrome: chrome,
+    //   document: mockDocument,
+    // };
+
+    // const code = fs.readFileSync("popup/options.js", "utf8");
+    // vm.runInNewContext(code, context);
   });
 
   afterEach(() => {
-    sinon.restore();
-    sinonChrome.reset();
+    chrome.flush();
   });
 
-  it("should retrieve URL and checked status from sync storage", (done) => {
-    sinonChrome.storage.sync.get.callsFake((keys, callback) => {
-      callback({ url: "https://www.google.com", checked: true }); // mock data provided by a callback
-    });
-
-    const urlInput = { value: "" };
-    const checkboxInput = { checked: false };
-
-    chrome.storage.sync.get(["url", "checked"], (data) => {
-      urlInput.value = data.url;
+  it("should initialize inputs from chrome.storage", function (done) {
+    chrome.storage.sync.get(["url", "checked", "message"], function (data) {
+      urlInput.value = data.url ?? "";
+      messageInput.value = data.message ?? "";
       checkboxInput.checked = data.checked;
-
-      expect(urlInput.value).to.equal("https://www.google.com");
-      expect(checkboxInput.checked).to.be.true;
+    });
+    setTimeout(() => {
+      expect(urlInput.value).to.equal("google.com");
+      expect(messageInput.value).to.equal("Hello");
+      expect(checkboxInput.checked).to.equal(false);
       done();
-    });
-  });
-
-  it("should retrieve base64 image from local storage", (done) => {
-    sinonChrome.storage.local.get.callsFake((keys, callback) => {
-      callback({ base64: "base64" }); // mock data provided by a callback
-    });
-
-    const imagePreview = { src: "", style: { display: "none" } };
-
-    chrome.storage.local.get(["base64"], (data) => {
-      const base64 = data.base64;
-      if (base64) {
-        imagePreview.src = base64;
-        imagePreview.style.display = "block";
-      }
-
-      expect(imagePreview.src).to.equal("base64");
-      expect(imagePreview.style.display).to.equal("block");
-      done();
-    });
+    }, 0);
   });
 });

@@ -1,53 +1,57 @@
-document.addEventListener("DOMContentLoaded", function () {
-  chrome.storage.sync.get(["url", "checked", "message"], function (data) {
-    urlInput.value = data.url ?? "";
-    messageInput.value = data.message ?? "";
-    checkboxInput.checked = data.checked;
-  });
+function getAndSetOptions() {
+  const previewImage = document.getElementById("previewImage");
 
-  chrome.storage.local.get(["base64"], function (data) {
-    const base64 = data.base64;
-    if (base64) {
-      const imagePreview = document.getElementById("imagePreview");
-      imagePreview.src = base64;
-      imagePreview.style.display = "block";
+  chrome.storage.sync.get(
+    ["url", "checked", "message", "urlToFavicon"],
+    function (data) {
+      urlInput.value = data.url ?? "";
+      messageInput.value = data.message ?? "";
+      checkboxInput.checked = data.checked;
+      previewButton.textContent = data.message;
+      if (data.urlToFavicon) {
+        previewImage.src = data.urlToFavicon;
+      }
     }
-  });
+  );
+}
 
-  const button = document.getElementById("imageButton");
-  const fileInput = document.getElementById("fileInput");
+document.addEventListener("DOMContentLoaded", function () {
+  chrome.storage.sync.get(
+    ["url", "checked", "message", "urlToFavicon"],
+    function (data) {
+      urlInput.value = data.url ?? "";
+      messageInput.value = data.message ?? "";
+      checkboxInput.checked = data.checked;
+      previewButton.textContent = data.message;
+      if (data.urlToFavicon) {
+        previewImage.src = data.urlToFavicon;
+      }
+    }
+  );
+
+  const previewImage = document.getElementById("previewImage");
+  const previewButton = document.getElementById("previewLabel");
   const urlInput = document.getElementById("urlInput");
   const checkboxInput = document.getElementById("checkboxInput");
   const saveButton = document.getElementById("saveButton");
   const messageInput = document.getElementById("messageInput");
 
-  button.addEventListener("click", function () {
-    fileInput.click();
-  });
-
-  fileInput.addEventListener("change", function () {
-    const file = fileInput.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        const imagePreview = document.getElementById("imagePreview");
-        imagePreview.src = e.target.result;
-        imagePreview.style.display = "block";
-      };
-      reader.readAsDataURL(file);
-    }
-  });
-
   saveButton.addEventListener("click", function (e) {
     e.preventDefault();
 
-    let existingContainer = document.getElementById("lottie-container");
-    if (existingContainer) {
-      existingContainer.classList.remove("hidden");
-    }
+    const url = urlInput.value;
+    const checked = checkboxInput.checked;
+    const urlToFavicon = new URL(url).origin + "/favicon.ico";
+    const message = messageInput.value;
+    chrome.storage.sync.set({ urlToFavicon, message });
 
+    const newContainer = document.createElement("div");
+    newContainer.id = "lottie-container";
+    newContainer.style.width = "50px";
+    newContainer.style.height = "50px";
+    saveButton.insertAdjacentElement("afterend", newContainer);
     const animation = lottie.loadAnimation({
-      container: document.getElementById("lottie-container"),
+      container: newContainer,
       renderer: "svg",
       loop: false,
       autoplay: true,
@@ -55,31 +59,18 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     animation.addEventListener("complete", function () {
-      existingContainer.classList.add("hidden");
+      newContainer.remove();
     });
 
-    const url = urlInput.value;
-    const file = fileInput.files[0];
-    const checked = checkboxInput.checked;
-    const message = messageInput.value;
-
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = function () {
-        const base64 = reader.result;
-        chrome.storage.local.set({ base64 }, function () {
-          //saved to local because it's a large amount of data
-          if (chrome.runtime.lastError) {
-            console.error(
-              "Error saving to local storage:",
-              chrome.runtime.lastError
-            );
-          }
-        });
-      };
-      reader.readAsDataURL(file);
-    }
-
-    chrome.storage.sync.set({ url, checked, message });
+    chrome.storage.sync.get(["urlToFavicon", "message"], function (data) {
+      const urlToFavicon = data.urlToFavicon;
+      console.log(urlToFavicon);
+      if (urlToFavicon) {
+        previewImage.src = urlToFavicon;
+        console.log(previewImage.src);
+      }
+      previewButton.textContent = data.message;
+    });
+    chrome.storage.sync.set({ url, checked, message, urlToFavicon });
   });
 });

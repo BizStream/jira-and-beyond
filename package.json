@@ -45,6 +45,7 @@
     "tailwindcss": "^3.4.3"
   },
   "dependencies": {
+    "jsdom": "^24.1.0",
     "lottie-web": "^5.12.2"
   }
 }

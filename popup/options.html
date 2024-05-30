@@ -1,31 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../dist/css/styles.css"/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../dist/css/styles.css" />
     <script src="options.js" defer></script>
     <script src="../images/lottie.min.js" defer></script>
     <title>Extension Options</title>
-</head>
-<body>
-    <div class="flex w-[400px] flex-col text-2xl gap-4">
-        <b class="flex justify-center mt-4">Options</b>
-        <form class="flex flex-col items-center gap-4">
-            <input id="urlInput" type="text" placeholder="Enter URL here..." class="flex justify-center border p-2 rounded w-[90%] text-sm"/>
-            <input id="messageInput" type="text" placeholder="Enter message here..." class="flex justify-center border p-2 rounded w-[90%] text-sm"/>
-            <button id="imageButton" type="button" class="p-2 bg-blue-500 text-white rounded text-sm">Attach image</button>
-            <input id="fileInput" type="file" class="hidden" accept="image/png, image/x-icon" />
-            <img id="imagePreview" src="" alt="(image preview)" class="hidden"/>
-            <div>
-                <span class="text-sm">Open in new tab?</span>
-                <input id="checkboxInput" type="checkbox" class="ml-2"/>
-            </div>
-            <div class="flex w-full flex-row items-center">
-                <button id="saveButton" type="submit" class="mt-2 mb-2 p-2 bg-green-500 text-white rounded">Save</button>
-                <div id="lottie-container" class="hidden h-12 w-12"></div>
-            </div>
-        </form>
+  </head>
+  <body>
+    <div class="px-2">
+      *Enter the URL to the App you'd like to go to, and a custom message to be
+      displayed. The image is auto-generated from that App's favicon
     </div>
-</body>
+    <div class="flex w-[400px] flex-col text-2xl gap-4">
+      <b class="flex justify-center mt-4">Options</b>
+      <form class="flex flex-col items-center gap-4">
+        <div class="flex w-[90%] flex-col">
+          <span class="text-sm">Button URL to External App:</span>
+          <input
+            id="urlInput"
+            type="text"
+            placeholder="Enter URL here..."
+            class="flex justify-center border p-2 rounded text-sm"
+          />
+        </div>
+        <div class="flex w-[90%] flex-col">
+          <span class="text-sm">Button Label:</span>
+          <input
+            id="messageInput"
+            type="text"
+            placeholder="Enter label here..."
+            class="flex justify-center border p-2 rounded text-sm"
+          />
+        </div>
+
+        <span class="text-sm w-[90%]">Button Preview:</span>
+
+        <div class="flex gap-10 items-center">
+          <button
+            id="previewButton"
+            type="button"
+            class="flex items-center justify-center border border-gray-300 text-gray-800 font-bold py-2 px-2 rounded shadow h-[24px] text-sm"
+          >
+            <img
+              id="previewImage"
+              class="mr-2 h-[20px]"
+              src="../images/favicon.ico"
+            />
+            <span id="previewLabel">Preview</span>
+          </button>
+        </div>
+
+        <div>
+          <span class="text-sm">Open in new tab?</span>
+          <input id="checkboxInput" type="checkbox" class="ml-2" />
+        </div>
+        <div class="flex w-full flex-row justify-center items-center">
+          <button
+            id="saveButton"
+            type="submit"
+            class="mt-2 mb-2 p-2 bg-green-500 text-white rounded"
+          >
+            Save
+          </button>
+        </div>
+      </form>
+    </div>
+  </body>
 </html>

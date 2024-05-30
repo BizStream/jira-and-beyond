@@ -1,37 +1,31 @@
 {
-    "manifest_version": 3,
-    "name": "Jira to Solo Extension",
-    "description": "Simple extension to take user form Jira to Solo",
-    "version": "1.0",
-    "action": {
-      "default_popup": "./popup/options.html",
-      "default_icon": "./images/favicon.ico"
-    },
-    "content_scripts": [
-      {
-        "matches": ["*://*.atlassian.net/*", "*://*.atlassian.net/jira/software/c/projects/*",
+  "manifest_version": 3,
+  "name": "Jira to Solo Extension",
+  "description": "Simple extension to take user form Jira to Solo",
+  "version": "1.0",
+  "action": {
+    "default_popup": "./popup/options.html",
+    "default_icon": "./images/favicon.ico"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.atlassian.net/*",
+        "*://*.atlassian.net/jira/software/c/projects/*",
         "*://*.atlassian.net/jira/software/c/projects/*/*",
-        "*://*.atlassian.net/jira/software/c/projects/*/boards/*?*"],
-        "js": ["./scripts/content.js"],
-        "css": ["./dist/css/styles.css"]
-      }
-    ],
-    
-    "permissions": [
-      "storage",
-      "activeTab",
-      "tabs"
-    ],
-    "web_accessible_resources": [
-      {
-        "resources": [
-          "dist/css/styles.css",
-          "images/*.png",
-          "images/*.ico"
-        ],
-        "matches": [
-          "*://*.atlassian.net/*"
-        ]
-      }
-    ]
-  }
+        "*://*.atlassian.net/jira/software/c/projects/*/boards/*?*",
+        "https://solo.bizstreamtools.com/favicon.ico"
+      ],
+      "js": ["./scripts/content.js"],
+      "css": ["./dist/css/styles.css"]
+    }
+  ],
+
+  "permissions": ["storage", "activeTab", "tabs"],
+  "web_accessible_resources": [
+    {
+      "resources": ["dist/css/styles.css", "images/*.png", "images/*.ico"],
+      "matches": ["*://*.atlassian.net/*"]
+    }
+  ]
+}

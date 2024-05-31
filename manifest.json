@@ -5,7 +5,12 @@
   "version": "1.0",
   "action": {
     "default_popup": "./popup/options.html",
-    "default_icon": "./images/favicon.ico"
+    "default_icon": "./images/favicon_io/favicon-16x16.png"
+  },
+  "icons": {
+    "16": "./images/favicon_io/favicon-16x16.png",
+    "48": "./images/favicon.ico",
+    "128": "./images/favicon.ico"
   },
   "content_scripts": [
     {
@@ -13,8 +18,7 @@
         "*://*.atlassian.net/*",
         "*://*.atlassian.net/jira/software/c/projects/*",
         "*://*.atlassian.net/jira/software/c/projects/*/*",
-        "*://*.atlassian.net/jira/software/c/projects/*/boards/*?*",
-        "https://solo.bizstreamtools.com/favicon.ico"
+        "*://*.atlassian.net/jira/software/c/projects/*/boards/*?*"
       ],
       "js": ["./scripts/content.js"],
       "css": ["./dist/css/styles.css"]

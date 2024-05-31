@@ -3,10 +3,7 @@ link.href = chrome.runtime.getURL("dist/css/styles.css");
 link.rel = "stylesheet";
 document.head.appendChild(link);
 
-const targetDivState2 =
-  'div[data-fullscreen-id="fullscreen-board-breadcrumbs"]';
 const targetDivState = 'ol[class="css-1h6m8iz"]';
-
 let myButton;
 
 function createButton() {
@@ -18,12 +15,16 @@ function createButton() {
 
   chrome.storage.sync.get(["message", "urlToFavicon"], function (data) {
     const buttonText = document.createTextNode(data.message);
-    myButton.appendChild(buttonText); // This will be whatever message is set in options
+    myButton.appendChild(buttonText);
     myImage.src = data.urlToFavicon;
   });
 
   myButton.appendChild(myImage);
 
+  clickButton(myButton);
+}
+
+function clickButton(myButton) {
   myButton.addEventListener("click", function () {
     const currentUrl = window.location.href;
     const code = currentUrl.split("/")[7];
@@ -37,7 +38,7 @@ function createButton() {
       if (newUrl && newUrl[newUrl.length - 1] !== "/") {
         newUrl += "/";
       }
-      newUrl += code; // This will be the URL set in options
+      newUrl += code;
 
       chrome.storage.sync.get(["checked"], function (data) {
         if (data.checked) {
@@ -61,12 +62,9 @@ const observer = new MutationObserver((mutations, observerInstance) => {
     if (!targetDiv.contains(myButton)) {
       targetDiv.appendChild(myButton);
     }
-
-    // Logging class name for debugging
   }
 });
 
-// Start observing the document for changes
 observer.observe(document.body, {
   childList: true,
   subtree: true,

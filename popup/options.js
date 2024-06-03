@@ -52,6 +52,16 @@ document.addEventListener("DOMContentLoaded", function () {
     messageInput
   );
 
+  urlInput.addEventListener("input", function () {
+    const url = urlInput.value;
+    const urlToFavicon = new URL(url).origin + "/favicon.ico";
+    previewImage.src = urlToFavicon;
+  });
+
+  messageInput.addEventListener("input", function () {
+    previewButton.textContent = messageInput.value;
+  });
+
   saveButton.addEventListener("click", function (e) {
     e.preventDefault();
 

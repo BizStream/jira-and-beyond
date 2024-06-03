@@ -3,13 +3,13 @@ link.href = chrome.runtime.getURL("dist/css/styles.css");
 link.rel = "stylesheet";
 document.head.appendChild(link);
 
-const targetDivState = 'ol[class="css-1h6m8iz"]';
+const targetDivState = 'nav[aria-label="Breadcrumbs"] ol';
 let myButton;
 
 function createButton() {
   myButton = document.createElement("button");
   myButton.className =
-    "flex items-center justify-center border border-gray-300 text-gray-800 font-bold py-2 px-2 rounded shadow h-[24px] ml-10 text-sm";
+    "flex items-center justify-center border border-gray-300 text-gray-800 font-bold px-2 rounded shadow h-[24px] ml-10 text-sm mt-[-10px] pt-4 pb-4";
   const myImage = document.createElement("img");
   myImage.className = "mr-2 h-[20px]";
 

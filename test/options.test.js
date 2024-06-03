@@ -1,8 +1,7 @@
-import { expect } from "chai";
-import chrome from "sinon-chrome";
-import { JSDOM } from "jsdom";
+const { expect } = require("chai");
+const chrome = require("sinon-chrome");
+const { JSDOM } = require("jsdom");
 
-//TODO: import js script and call actual functions
 describe("Options popup", () => {
   let urlInput,
     messageInput,
@@ -10,6 +9,7 @@ describe("Options popup", () => {
     previewButton,
     previewImage,
     saveButton;
+  let getAndSetOptions, playAnimation;
 
   beforeEach(() => {
     // Create a virtual DOM environment
@@ -18,18 +18,19 @@ describe("Options popup", () => {
         <input id="urlInput" type="text" />
         <input id="messageInput" type="text" />
         <input id="checkboxInput" type="checkbox" />
-        <button id="previewButton"></button>
+        <button id="previewLabel"></button>
         <img id="previewImage" />
         <button id="saveButton"></button>
       </body></html>`
     );
 
     // Define the variables to store the element states
+    global.window = dom.window;
     global.document = dom.window.document;
     urlInput = document.getElementById("urlInput");
     messageInput = document.getElementById("messageInput");
     checkboxInput = document.getElementById("checkboxInput");
-    previewButton = document.getElementById("previewButton");
+    previewButton = document.getElementById("previewLabel");
     previewImage = document.getElementById("previewImage");
     saveButton = document.getElementById("saveButton");
 
@@ -43,22 +44,24 @@ describe("Options popup", () => {
       checked: false,
       urlToFavicon: "google.com/favicon.ico",
     });
+
+    // Import functions after the DOM and chrome API are mocked
+    const optionsModule = require("../popup/options.js");
+    getAndSetOptions = optionsModule.getAndSetOptions;
+    playAnimation = optionsModule.playAnimation;
   });
 
   afterEach(() => {
     chrome.flush();
   });
 
-  it("should initialize inputs from chrome.storage", function (done) {
-    chrome.storage.sync.get(
-      ["url", "checked", "message", "urlToFavicon"],
-      function (data) {
-        urlInput.value = data.url ?? "";
-        messageInput.value = data.message ?? "";
-        checkboxInput.checked = data.checked ?? false;
-        previewButton.textContent = data.message ?? "";
-        previewImage.src = data.urlToFavicon ?? "";
-      }
+  it("should initialize inputs from chrome.storage", function () {
+    getAndSetOptions(
+      previewImage,
+      previewButton,
+      urlInput,
+      checkboxInput,
+      messageInput
     );
 
     expect(urlInput.value).to.equal("google.com");

@@ -7,13 +7,14 @@
     "build-css": "postcss popup/styles.css -o dist/css/styles.css",
     "watch-css": "postcss popup/styles.css -o dist/css/styles.css --watch",
     "test": "mocha --experimental-modules 'test/**/*.test.js'",
-    "coverage": "nyc npm test"
+    "coverage": "nyc mocha"
   },
   "nyc": {
     "include": [
       "popup/**/*.js",
       "scripts/**/*.js"
     ],
+    "exclude": ["test/**/*.js", "node_modules/**/*", "dist/**/*", "coverage/**/*"],
     "reporter": [
       "text",
       "html"

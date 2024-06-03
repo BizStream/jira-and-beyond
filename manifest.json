@@ -5,10 +5,10 @@
   "version": "1.0",
   "action": {
     "default_popup": "./popup/options.html",
-    "default_icon": "./images/favicon_io/favicon-16x16.png"
+    "default_icon": "./images/favicon_io (1)/favicon-16x16.png"
   },
   "icons": {
-    "16": "./images/favicon_io/favicon-16x16.png",
+    "16": "./images/favicon_io (1)/favicon-16x16.png",
     "48": "./images/favicon.ico",
     "128": "./images/favicon.ico"
   },

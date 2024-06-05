@@ -25,4 +25,4 @@ Please contact us if you have any questions about our privacy policy by email to
 
 ## History
 
-cf. https://github.com/gildas-lormeau/SingleFile/commits/master/privacy.md
+cf. https://github.com/BizStream/jira-to-solo/blob/main/privacy.md

@@ -1,21 +1,20 @@
 {
   "manifest_version": 3,
   "name": "Jira to Solo Extension",
-  "description": "Simple extension to take user form Jira to Solo",
+  "description": "Simple extension to take user from Jira to another site.",
   "version": "1.0",
   "action": {
     "default_popup": "./popup/options.html",
-    "default_icon": "./images/favicon_io (1)/favicon-16x16.png"
+    "default_icon": "./images/favicon_io/favicon-16x16.png"
   },
   "icons": {
-    "16": "./images/favicon_io (1)/favicon-16x16.png",
+    "16": "./images/favicon_io/favicon-16x16.png",
     "48": "./images/favicon.ico",
-    "128": "./images/favicon.ico"
+    "128": "./images/favicon_io/favicon-128x128.png"
   },
   "content_scripts": [
     {
       "matches": [
-        "*://*.atlassian.net/*",
         "*://*.atlassian.net/jira/software/c/projects/*",
         "*://*.atlassian.net/jira/software/c/projects/*/*",
         "*://*.atlassian.net/jira/software/c/projects/*/boards/*?*"
@@ -25,7 +24,7 @@
     }
   ],
 
-  "permissions": ["storage", "activeTab", "tabs"],
+  "permissions": ["storage", "activeTab"],
   "web_accessible_resources": [
     {
       "resources": ["dist/css/styles.css", "images/*.png", "images/*.ico"],

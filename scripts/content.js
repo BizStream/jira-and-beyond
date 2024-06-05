@@ -35,9 +35,6 @@ function clickButton(myButton) {
 
     chrome.storage.sync.get(["url"], function (data) {
       let newUrl = data.url;
-      if (newUrl && newUrl[newUrl.length - 1] !== "/") {
-        newUrl += "/";
-      }
       newUrl += code;
 
       chrome.storage.sync.get(["checked"], function (data) {

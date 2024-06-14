@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Jira and Beyond Extension",
   "description": "Simple extension to take user from Jira to another site.",
-  "version": "1.0",
+  "version": "1.1",
   "action": {
     "default_popup": "./popup/options.html",
     "default_icon": "./images/favicon_io/favicon-16x16.png"

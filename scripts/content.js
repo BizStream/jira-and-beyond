@@ -9,11 +9,15 @@ let myButton;
 function createButton() {
   myButton = document.createElement("button");
   myButton.className =
-    "flex items-center justify-center border border-gray-300 text-gray-800 font-bold px-2 rounded shadow h-[24px] ml-10 text-sm mt-[-10px] pt-4 pb-4";
+    "flex items-center justify-center border border-gray-300 text-gray-800 font-bold px-2 rounded shadow h-[24px] ml-10 text-sm mt-[-10px] pt-4 pb-4 bg-white";
   const myImage = document.createElement("img");
   myImage.className = "mr-2 h-[20px]";
 
   chrome.storage.sync.get(["message", "urlToFavicon"], function (data) {
+    if (!data.message || !data.urlToFavicon) {
+      data.message = "Default";
+      data.urlToFavicon = "https://solo.bizstreamtools.com/favicon.ico";
+    }
     const buttonText = document.createTextNode(data.message);
     myButton.appendChild(buttonText);
     myImage.src = data.urlToFavicon;

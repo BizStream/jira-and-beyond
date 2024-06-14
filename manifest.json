@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Jira to Solo Extension",
+  "name": "Jira and Beyond Extension",
   "description": "Simple extension to take user from Jira to another site.",
   "version": "1.0",
   "action": {
@@ -24,7 +24,7 @@
     }
   ],
 
-  "permissions": ["storage", "activeTab"],
+  "permissions": ["storage"],
   "web_accessible_resources": [
     {
       "resources": ["dist/css/styles.css", "images/*.png", "images/*.ico"],

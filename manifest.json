@@ -19,7 +19,7 @@
         "*://*.atlassian.net/jira/software/c/projects/*/*",
         "*://*.atlassian.net/jira/software/c/projects/*/boards/*?*"
       ],
-      "js": ["./scripts/content.js"],
+      "js": ["./dist/content.bundle.js"],
       "css": ["./dist/css/styles.css"]
     }
   ],

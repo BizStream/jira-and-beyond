@@ -11,8 +11,8 @@ function getAndSetOptions(
       urlInput.value = data.url ?? "";
       messageInput.value = data.message ?? "";
       checkboxInput.checked = data.checked ?? false;
-      previewButton.textContent = data.message ?? "";
-      previewImage.src = data.urlToFavicon ?? "";
+      previewButton.textContent = data.message ?? "Preview";
+      previewImage.src = data.urlToFavicon ?? "../images/favicon.ico";
     }
   );
 }

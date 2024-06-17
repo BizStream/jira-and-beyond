@@ -6,21 +6,19 @@ Version: **[1.1](https://docs.google.com/document/d/1gsFS6rzvgdNrrkESBRAByd7aLrE
 
 ## Building the UI
 
-To build the UI project, open the workspace file `aggbid.code-workspace` that lives in the root of the project. Once the project is open in VSCode, open a terminal window and run `npm ci`. This will install all of the necessary packages without modifying the `package.json` and `package-lock.json`.
+Once the project is open in VSCode, open a terminal window and run `npm ci`. This will install all of the necessary packages without modifying the `package.json` and `package-lock.json`.
 
-Once the `npm ci` command has completed, run `npm run serve` to build the project or run `npm run build` to build the project for production.
+Once the `npm ci` command has completed, run `npx webpack` to build the project.
 
 ## Development Notes
 
-In order to develop and test in Chrome with the Geolocation API you need to do the following.
+In order to develop and test in Chrome.
 
-- Navigate to `chrome://flags/` in Chrome.
-- Search for `Insecure origins treated as secure`.
-- Enable the flag and add `http://localhost:8080,https://localhost:8080` to the text box. Change your port if needed.
+- Navigate to `chrome://extensions/` in Chrome.
+- Enable Developer Mode in the upper right
+- Click on Load unpacked and select the project root folder
 
-## Firebase Cloud Function
+## Other Notes
 
-This project makes use of Firebase Cloud Functions. Documentation can be found in the following directory `/bzs-aggbid/src/cloud-functions`.
-
-Do not use the Vue `@` alias within files in the `constants`, `enums`, and `types` directory. The `@` alias causes issues for deploying your cloud functions.
+Every time you make a change you will have to rerun `npx webpack` because there is currently no watcher command to update the build folder
 

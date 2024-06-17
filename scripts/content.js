@@ -1,5 +1,5 @@
 const link = document.createElement("link");
-link.href = chrome.runtime.getURL("dist/css/styles.css");
+link.href = chrome.runtime.getURL("dist/css/tailwind.css");
 link.rel = "stylesheet";
 document.head.appendChild(link);
 

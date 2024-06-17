@@ -20,14 +20,14 @@
         "*://*.atlassian.net/jira/software/c/projects/*/boards/*?*"
       ],
       "js": ["./dist/content.bundle.js"],
-      "css": ["./dist/css/styles.css"]
+      "css": ["./dist/css/tailwind.css"]
     }
   ],
 
   "permissions": ["storage"],
   "web_accessible_resources": [
     {
-      "resources": ["dist/css/styles.css", "images/*.png", "images/*.ico"],
+      "resources": ["dist/css/tailwind.css", "images/*.png", "images/*.ico"],
       "matches": ["*://*.atlassian.net/*"]
     }
   ]

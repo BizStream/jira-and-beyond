@@ -6,7 +6,7 @@ export default {
   entry: {
     content: "./scripts/content.js",
     popup: "./popup/options.js",
-    tailwind: "./popup/styles.css",
+    tailwind: "./popup/tailwind.css",
   },
   output: {
     filename: "[name].bundle.js",
